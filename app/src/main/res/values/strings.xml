@@ -6,6 +6,7 @@
     <string name="search">Tìm</string>
     <string name="item_id">ID</string>
     <string name="item_name">Name</string>
+    <string name="search_view">Tìm kiếm</string>
 
 
 </resources>
