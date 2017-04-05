@@ -1,0 +1,22 @@
+[
+   {
+      "bus_id":1,
+      "bus_name":"Bến Thành - BX Chợ Lớn"
+   },
+   {
+      "bus_id":2,
+      "bus_name":"Bến Thành - BX Miền Tây"
+   },
+   {
+      "bus_id":4,
+      "bus_name":"Bến Thành - Cộng Hòa - An Sương"
+   },
+   {
+      "bus_id":3,
+      "bus_name":"Bến Thành - Thạnh Lộc"
+   },
+   {
+      "bus_id":5,
+      "bus_name":"Bến xe Chợ Lớn - Biên Hòa"
+   }
+]

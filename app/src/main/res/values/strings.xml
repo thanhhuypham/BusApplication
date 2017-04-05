@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BusApp</string>
+
+    <string name="title_tuyen">TUYẾN</string>
+    <string name="hint_search">Nhập mã hoặc tên tuyến</string>
+    <string name="search">Tìm</string>
+    <string name="item_id">ID</string>
+    <string name="item_name">Name</string>
+
+
+</resources>
