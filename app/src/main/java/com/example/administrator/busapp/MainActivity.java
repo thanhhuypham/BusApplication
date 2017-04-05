@@ -30,30 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTim;
     private ListView lvBus;
 
-    private String strJSON =
-            "{\"Bus\":[\n" +
-                    "   {\n" +
-                    "      \"bus_id\":1,\n" +
-                    "      \"bus_name\":\"Bến Thành - BX Chợ Lớn\"\n" +
-                    "   },\n" +
-                    "   {\n" +
-                    "      \"bus_id\":2,\n" +
-                    "      \"bus_name\":\"Bến Thành - BX Miền Tây\"\n" +
-                    "   },\n" +
-                    "   {\n" +
-                    "      \"bus_id\":4,\n" +
-                    "      \"bus_name\":\"Bến Thành - Cộng Hòa - An Sương\"\n" +
-                    "   },\n" +
-                    "   {\n" +
-                    "      \"bus_id\":3,\n" +
-                    "      \"bus_name\":\"Bến Thành - Thạnh Lộc\"\n" +
-                    "   },\n" +
-                    "   {\n" +
-                    "      \"bus_id\":5,\n" +
-                    "      \"bus_name\":\"Bến xe Chợ Lớn - Biên Hòa\"\n" +
-                    "   }\n" +
-                    "]}";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,15 +39,19 @@ public class MainActivity extends AppCompatActivity {
         btnTim = (Button) findViewById(R.id.btnTim);
         lvBus = (ListView) findViewById(R.id.listViewBus);
 
+        readDataBusJSON();
+    }
+
+    private void readDataBusJSON() {
         try {
-            JSONObject jsonObject = new JSONObject(strJSON);
-            JSONArray jsonArray = jsonObject.optJSONArray("Bus");
+            JSONObject jsonObject = new JSONObject(DataBusJSON.strJSON);
+            JSONArray jsonArray = jsonObject.getJSONArray("Bus");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject items = jsonArray.getJSONObject(i);
 
-                String id = items.optString("bus_id").toString();
-                String name = items.optString("bus_name").toString();
+                String id = items.getString("bus_id").toString();
+                String name = items.getString("bus_name").toString();
 
                 Bus bus = new Bus(id, name);
                 arrList.add(bus);
@@ -83,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
         catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
-
-
 
 }
