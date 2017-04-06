@@ -1,5 +1,6 @@
 package com.example.administrator.busapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -8,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
         lvBus = (ListView) findViewById(R.id.listViewBus);
 
         readDataBusJSON();
+
+        lvBus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", arrList.get(position).getId());
+                bundle.putString("name", arrList.get(position).getName());
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent. putExtra("bus", bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void readDataBusJSON() {
