@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent. putExtra("bus", bundle);
                 startActivity(intent);
-                finish();
             }
         });
     }
