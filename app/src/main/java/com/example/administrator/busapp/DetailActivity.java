@@ -1,18 +1,26 @@
 package com.example.administrator.busapp;
 
 import android.content.Intent;
+import android.media.MediaCodec;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -20,9 +28,11 @@ public class DetailActivity extends AppCompatActivity {
     private WebView webView;
     private ImageView imgBack;
     private CheckBox chkSave;
-    String id;
-    String link;
     String detail = "";
+    String id;
+    String name;
+    String start;
+    String end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +43,13 @@ public class DetailActivity extends AppCompatActivity {
         chkSave = (CheckBox) findViewById(R.id.chkhistory);
 
         final Intent intent = getIntent();
-        final Bundle bundle = intent.getBundleExtra("bus");
+        final Bundle bundle = intent.getBundleExtra("data");
         id = bundle.getString("id");
-        link = "http://buyttphcm.com.vn/RouteDetail?rId=" + id + "&sP=Route";
+        name = bundle.getString("name");
+        start = bundle.getString("start");
+        end = bundle.getString("end");
 
-        Toast.makeText(DetailActivity.this, link, Toast.LENGTH_LONG).show();
-
+        showContent();
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,39 +58,19 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        new getDataBus().execute();
 
     }
 
-    public class getDataBus extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    private void showContent()  {
 
-        @Override
-        protected Void doInBackground(Void... params) {
+        WebSettings settings = webView.getSettings();
+        settings.setDefaultTextEncodingName("utf-8");
 
-            try {
-                Document document = Jsoup.connect(link).get();
-
-
-                Elements content = document.select("div.EasyDNNSkin_NewsTwo div.NewsTwoBackgroundGradient div.NewsTwoMain div.content-top-wraper div#dnn_ContentTop div.DnnModule div.eds_templateGroup_default div#dnn_ctr3593_ContentPane div#dnn_ctr3593_ModuleContent div.routeDetail div.routeInfo table tbody td td");
-
-                detail += "<p>" + content.text() + "</p>";
-
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            webView.loadDataWithBaseURL("", detail, "text/html", "UTF-8", "");
-        }
+        String strId = "<p> Mã số tuyến: " + id.toString() + "</p>";
+        String strName = "<p> Tên tuyến: " + name.toString()  + "</p>";
+        String strStart = "<p>" + start.toString()  + "</p>";
+        String strEnd= "<p>" + end.toString()  + "</p>";
+        String content = strId + strName + strStart + strEnd;
+        webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }
-
 }

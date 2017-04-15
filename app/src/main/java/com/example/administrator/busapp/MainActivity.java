@@ -1,79 +1,121 @@
 package com.example.administrator.busapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     BusAdapter adapter;
-    private static ArrayList<Bus> arrList;
-    private EditText edtInputSearch;
-    private Button btnTim;
+    private static ArrayList<Bus> arrBus;
     private ListView lvBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        arrList = new ArrayList<Bus>();
-        edtInputSearch = (EditText) findViewById(R.id.editTextSearch);
-        btnTim = (Button) findViewById(R.id.btnTim);
         lvBus = (ListView) findViewById(R.id.listViewBus);
-
-        readDataBusJSON();
-
+        arrBus = new ArrayList<Bus>();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new docJSON().execute("http://bustphcm.tk/json.php");
+            }
+        });
         lvBus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putString("id", arrList.get(position).getId());
-                bundle.putString("name", arrList.get(position).getName());
+                bundle.putString("id", arrBus.get(position).getId());
+                bundle.putString("name", arrBus.get(position).getName());
+                bundle.putString("start", arrBus.get(position).getStart());
+                bundle.putString("end", arrBus.get(position).getEnd());
+
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent. putExtra("bus", bundle);
+                intent.putExtra("data", bundle);
                 startActivity(intent);
             }
         });
     }
 
-    private void readDataBusJSON() {
-        try {
-            JSONObject jsonObject = new JSONObject(DataBusJSON.strJSON);
-            JSONArray jsonArray = jsonObject.getJSONArray("Bus");
+    class docJSON extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            return docNoiDung_Tu_URL(params[0]);
+        }
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject items = jsonArray.getJSONObject(i);
+        @Override
+        protected void onPostExecute(String s) {
+            //Toast.makeText(MainActivity.this, s, Toast.LENGTH_LONG).show();
 
-                String id = items.getString("bus_id").toString();
-                final String name = items.getString("bus_name").toString();
+            try {
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String id = jsonObject.getString("bus_id");
+                    String name = jsonObject.getString("bus_name");
+                    String start = jsonObject.getString("bus_start");
+                    String end = jsonObject.getString("bus_end");
+                    Bus bus = new Bus(id, name, start, end);
+                    arrBus.add(bus);
+                }
 
-                Bus bus = new Bus(id, name);
-                arrList.add(bus);
 
-                adapter = new BusAdapter(MainActivity.this, R.layout.layout_item_listview, arrList);
+                adapter = new BusAdapter(MainActivity.this, R.layout.layout_item_listview, arrBus);
                 lvBus.setAdapter(adapter);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
-        catch (JSONException e) {
+    }
+
+    private static String docNoiDung_Tu_URL(String theUrl)
+    {
+        StringBuilder content = new StringBuilder();
+
+        try
+        {
+            // create a url object
+            URL url = new URL(theUrl);
+
+            // create a urlconnection object
+            URLConnection urlConnection = url.openConnection();
+
+            // wrap the urlconnection in a bufferedreader
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            String line;
+
+            // read from the urlconnection via the bufferedreader
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
+        }
+        catch(Exception e)
+        {
             e.printStackTrace();
         }
+        return content.toString();
     }
+
+
 }
