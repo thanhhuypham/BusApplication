@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/itemTuyen"
+        android:icon="@mipmap/ic_view_list_black_24dp"
+        android:title="@string/item_menu_tuyen">
+    </item>
+    <item android:id="@+id/itemTimduong"
+        android:icon="@mipmap/ic_directions_bus_black_24dp"
+        android:title="@string/item_menu_timduong">
+    </item>
+    <item android:id="@+id/itemNhantin"
+        android:icon="@mipmap/ic_message_black_24dp"
+        android:title="@string/item_menu_nhantin">
+    </item>
+    <item android:id="@+id/itemLichsu"
+        android:icon="@mipmap/ic_history_black_24dp"
+        android:title="@string/item_menu_lichsu">
+    </item>
+</menu>

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 29/03/2017.
@@ -21,12 +22,17 @@ public class BusAdapter extends ArrayAdapter<Bus> {
     int itemLayout;
     ArrayList<Bus> arrBus = null;
 
+    private ArrayList<Bus> arraylist;
+
     public BusAdapter(Activity context, int resource, ArrayList<Bus> arrBus) {
         super(context, resource, arrBus);
 
         this.context = context;
         itemLayout = resource;
         this.arrBus = arrBus;
+
+        this.arraylist = new ArrayList<Bus>();
+        this.arraylist.addAll(arrBus);
     }
     @NonNull
     @Override
@@ -46,5 +52,25 @@ public class BusAdapter extends ArrayAdapter<Bus> {
         }
 
         return convertView;
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        arrBus.clear();
+        if (charText.length() == 0) {
+            arrBus.addAll(arraylist);
+        }
+        else
+        {
+            for (Bus wp : arraylist)
+            {
+                if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText) || wp.getId().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    arrBus.add(wp);
+                }
+
+            }
+        }
+        notifyDataSetChanged();
     }
 }

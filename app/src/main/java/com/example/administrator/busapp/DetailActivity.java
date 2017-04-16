@@ -1,26 +1,13 @@
 package com.example.administrator.busapp;
 
 import android.content.Intent;
-import android.media.MediaCodec;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.DataNode;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -53,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(DetailActivity.this, MainActivity.class);
+                Intent intent1 = new Intent(DetailActivity.this, ListActivity.class);
                 startActivity(intent1);
             }
         });
