@@ -40,8 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(DetailActivity.this, ListActivity.class);
-                startActivity(intent1);
+                DetailActivity.super.onBackPressed();
             }
         });
 
@@ -53,10 +52,10 @@ public class DetailActivity extends AppCompatActivity {
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");
 
-        String strId = "<p> Mã số tuyến: " + id.toString() + "</p>";
-        String strName = "<p> Tên tuyến: " + name.toString()  + "</p>";
-        String strStart = "<p>" + start.toString()  + "</p>";
-        String strEnd= "<p>" + end.toString()  + "</p>";
+        String strId = "<p>" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
+        String strName = "<p>" + "<b>" + " Tên tuyến: " + "</b>" + name.toString() + "</p>";
+        String strStart = "<p style = \" color: #34B67A \">" + start.toString()  + "</p>";
+        String strEnd = "<p style = \" color: #34B67A \">" + end.toString()  + "</p>";
         String content = strId + strName + strStart + strEnd;
         webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }

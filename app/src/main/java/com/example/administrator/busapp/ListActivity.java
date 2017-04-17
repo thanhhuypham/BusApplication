@@ -1,5 +1,6 @@
 package com.example.administrator.busapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import org.json.JSONArray;
@@ -29,11 +32,13 @@ public class ListActivity extends AppCompatActivity {
     private static ArrayList<Bus> arrBus;
     private ListView lvBus;
     private EditText edtSearch;
+    private ImageView imgClose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bus);
 
+        imgClose = (ImageView) findViewById(R.id.imgClose);
         edtSearch = (EditText) findViewById(R.id.editTextSearch);
         lvBus = (ListView) findViewById(R.id.listViewBus);
         arrBus = new ArrayList<Bus>();
@@ -41,7 +46,14 @@ public class ListActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new docJSON().execute("http://bushcm.5gbfree.com/json.php");
+                new docJSON().execute("https://xebuyttphcm.000webhostapp.com/json.php");
+            }
+        });
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListActivity.super.onBackPressed();
             }
         });
 
@@ -79,6 +91,15 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class docJSON extends AsyncTask<String, Integer, String> {
+        ProgressDialog dialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ListActivity.this);
+            dialog.setMessage("Đang tải dữ liệu. Vui lòng chờ trong giây lát...");
+            dialog.show();
+        }
+
         @Override
         protected String doInBackground(String... params) {
             return docNoiDung_Tu_URL(params[0]);
@@ -87,7 +108,8 @@ public class ListActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             //Toast.makeText(ListActivity.this, s, Toast.LENGTH_LONG).show();
-
+            dialog.dismiss();
+            Toast.makeText(ListActivity.this, "Hoàn tất việc tải dữ liệu!", Toast.LENGTH_LONG).show();
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {

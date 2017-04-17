@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initInstances() {
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
 
         navigation = (NavigationView) findViewById(R.id.navigation_view);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -49,19 +49,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.item_menu, menu);
-        return true;
     }
 
     @Override
