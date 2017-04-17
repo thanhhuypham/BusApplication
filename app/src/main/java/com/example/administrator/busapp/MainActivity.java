@@ -40,8 +40,15 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.itemTuyen:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent i = new Intent(MainActivity.this, ListActivity.class);
-                        startActivity(i);
+                        Intent intent1 = new Intent(MainActivity.this, ListActivity.class);
+                        startActivity(intent1);
+
+                        break;
+                    case R.id.itemLichsu:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        Intent intent2 = new Intent(MainActivity.this, HistoryActivity.class);
+                        startActivity(intent2);
 
                         break;
                 }

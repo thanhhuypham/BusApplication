@@ -1,4 +1,4 @@
-package com.example.administrator.busapp;
+package com.example.administrator.busapp.datamodels;
 
 /**
  * Created by Administrator on 29/03/2017.

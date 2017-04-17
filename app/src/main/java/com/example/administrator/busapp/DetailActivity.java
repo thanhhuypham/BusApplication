@@ -3,11 +3,25 @@ package com.example.administrator.busapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.administrator.busapp.datamodels.Bus;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -15,16 +29,19 @@ public class DetailActivity extends AppCompatActivity {
     private WebView webView;
     private ImageView imgBack;
     private CheckBox chkSave;
-    String detail = "";
     String id;
     String name;
     String start;
     String end;
+    private DatabaseReference dbBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        dbBus = FirebaseDatabase.getInstance().getReference("bus");
+
         webView = (WebView) findViewById(R.id.webViewBus);
         imgBack = (ImageView) findViewById(R.id.imgBack);
         chkSave = (CheckBox) findViewById(R.id.chkhistory);
@@ -44,8 +61,28 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        chkSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (chkSave.isChecked()) {
+                    Bus bus = new Bus(id, name, start, end);
+
+                    dbBus.child(id).setValue(bus);
+                    Toast.makeText(DetailActivity.this, "Tuyến " + name + " đã được lưu vào lịch sử tìm kiếm", Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("bus").child(id);
+                    databaseReference.removeValue();
+
+                    Toast.makeText(DetailActivity.this, "Tuyến " + name + " đã được hủy bỏ", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
 
     }
+
 
     private void showContent()  {
 
@@ -59,4 +96,5 @@ public class DetailActivity extends AppCompatActivity {
         String content = strId + strName + strStart + strEnd;
         webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }
+
 }

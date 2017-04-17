@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.administrator.busapp.adapter.BusAdapter;
+import com.example.administrator.busapp.datamodels.Bus;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
