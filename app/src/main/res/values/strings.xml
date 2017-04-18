@@ -27,10 +27,10 @@
 
     <string name="lich_su_tim">LỊCH SỬ</string>
 
-    <string name="name">Người dùng</string>
-    <string name="email">Email</string>
+    <string name="recipident">Người nhận</string>
+    <string name="subjects">Chủ đề</string>
 
-    <string name="questions">Câu hỏi/Bình luận</string>
+    <string name="messages">Tin nhắn</string>
     <string name="send">Gửi</string>
     <string name="contact">LIÊN HỆ</string>
 </resources>

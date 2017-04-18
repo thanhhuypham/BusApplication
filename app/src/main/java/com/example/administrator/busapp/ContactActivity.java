@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.administrator.busapp.mail.SendMail;
+
 public class ContactActivity extends AppCompatActivity {
 
-    private EditText edtUser;
-    private EditText edtEmail;
-    private EditText edtContent;
+    private EditText editTextEmail;
+    private EditText editTextSubject;
+    private EditText editTextMessage;
     private Button btnSend;
 
     @Override
@@ -19,20 +21,24 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-        edtUser = (EditText) findViewById(R.id.edtInputUser);
-        edtEmail = (EditText) findViewById(R.id.edtInputEmail);
-        edtContent = (EditText) findViewById(R.id.edtInputContent);
-        btnSend = (Button) findViewById(R.id.btnSend);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextSubject = (EditText) findViewById(R.id.editTextSubject);
+        editTextMessage = (EditText) findViewById(R.id.editTextMessage);
+        btnSend = (Button) findViewById(R.id.buttonSend);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentEmail = new Intent(Intent.ACTION_SEND);
-                intentEmail.setType("plain/text");
-                intentEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"thanhhuy.25101996@gmail.com"});
-                
+                String email = editTextEmail.getText().toString();
+                String subject = editTextSubject.getText().toString();
+                String message = editTextMessage.getText().toString();
+
+                //Creating SendMail object
+                SendMail sendMail = new SendMail(ContactActivity.this, email, subject, message);
+
+                //Executing sendmail to send email
+                sendMail.execute();
             }
         });
-
     }
 }

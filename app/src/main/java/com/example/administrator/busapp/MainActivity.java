@@ -51,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
 
                         break;
+                    case R.id.itemNhantin:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        Intent intent3 = new Intent(MainActivity.this, ContactActivity.class);
+                        startActivity(intent3);
+
+                        break;
                 }
                 return false;
             }

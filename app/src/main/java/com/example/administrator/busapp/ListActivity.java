@@ -49,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new docJSON().execute("https://xebuyttphcm.000webhostapp.com/json.php");
+                new docJSON().execute("http://timxebuyttphcm.tk/json.php");
             }
         });
 
