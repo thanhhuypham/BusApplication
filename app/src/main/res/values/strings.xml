@@ -26,4 +26,11 @@
     <string name="close">Close</string>
 
     <string name="lich_su_tim">LỊCH SỬ</string>
+
+    <string name="name">Người dùng</string>
+    <string name="email">Email</string>
+
+    <string name="questions">Câu hỏi/Bình luận</string>
+    <string name="send">Gửi</string>
+    <string name="contact">LIÊN HỆ</string>
 </resources>

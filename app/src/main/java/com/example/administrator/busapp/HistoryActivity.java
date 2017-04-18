@@ -3,6 +3,9 @@ package com.example.administrator.busapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -19,7 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
-
+    public static final String BUS_ID = "com.example.administrator.busapp.busid";
+    public static final String BUS_NAME = "com.example.administrator.busapp.busname";
+    public static final String BUS_START = "com.example.administrator.busapp.busstart";
+    public static final String BUS_END = "com.example.administrator.busapp.busend";
     private ImageView imgViewClose;
     private ListView lvHistory;
     private ArrayList<Bus> arrBus;
@@ -48,17 +54,41 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putString("id", arrBus.get(position).getId());
-                bundle.putString("name", arrBus.get(position).getName());
-                bundle.putString("start", arrBus.get(position).getStart());
-                bundle.putString("end", arrBus.get(position).getEnd());
+                bundle.putString(BUS_ID, arrBus.get(position).getId());
+                bundle.putString(BUS_NAME, arrBus.get(position).getName());
+                bundle.putString(BUS_START, arrBus.get(position).getStart());
+                bundle.putString(BUS_END, arrBus.get(position).getEnd());
 
-                Intent intent = new Intent(HistoryActivity.this, DetailActivity.class);
-                intent.putExtra("data", bundle);
+                Intent intent = new Intent(HistoryActivity.this, DetailHistoryActivity.class);
+                intent.putExtra("datahis", bundle);
                 startActivity(intent);
             }
         });
 
+        registerForContextMenu(lvHistory);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.menuDelete:
+                deleteBus(info.position);
+                break;
+        }
+        return true;
+    }
+
+    private void deleteBus(int position) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("bus").child(arrBus.get(position).getId());
+        dR.removeValue();
     }
 
     @Override

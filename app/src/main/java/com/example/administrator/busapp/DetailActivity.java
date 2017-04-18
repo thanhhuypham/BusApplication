@@ -3,7 +3,6 @@ package com.example.administrator.busapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,16 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.administrator.busapp.datamodels.Bus;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Map;
-
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -47,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
         chkSave = (CheckBox) findViewById(R.id.chkhistory);
 
         final Intent intent = getIntent();
+
+
         final Bundle bundle = intent.getBundleExtra("data");
         id = bundle.getString("id");
         name = bundle.getString("name");
@@ -91,10 +84,11 @@ public class DetailActivity extends AppCompatActivity {
 
         String strId = "<p>" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
         String strName = "<p>" + "<b>" + " Tên tuyến: " + "</b>" + name.toString() + "</p>";
-        String strStart = "<p style = \" color: #34B67A \">" + start.toString()  + "</p>";
-        String strEnd = "<p style = \" color: #34B67A \">" + end.toString()  + "</p>";
+        String strStart = "<br>" + "<b>" + "Lượt đi:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">"  + start.toString()  + "</p>";
+        String strEnd = "<br>" + "<b>" + "Lượt về:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">" + end.toString()  + "</p>";
         String content = strId + strName + strStart + strEnd;
         webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }
+
 
 }
