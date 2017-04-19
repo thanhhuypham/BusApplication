@@ -1,4 +1,4 @@
-package com.example.administrator.busapp;
+package com.example.administrator.busapp.detail;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +8,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
-import com.example.administrator.busapp.datamodels.Bus;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.administrator.busapp.list.ListViewLaterActivity;
+import com.example.administrator.busapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class DetailHistoryActivity extends AppCompatActivity {
+public class DetailViewLaterActivity extends AppCompatActivity {
 
 
 
@@ -31,15 +29,15 @@ public class DetailHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_history);
+        setContentView(R.layout.activity_detail);
         dbHis = FirebaseDatabase.getInstance().getReference("bus");
 
         final Intent intent = getIntent();
         final Bundle bundle = intent.getBundleExtra("datahis");
-        id = bundle.getString(HistoryActivity.BUS_ID);
-        name = bundle.getString(HistoryActivity.BUS_NAME);
-        start = bundle.getString(HistoryActivity.BUS_START);
-        end = bundle.getString(HistoryActivity.BUS_END);
+        id = bundle.getString(ListViewLaterActivity.BUS_ID);
+        name = bundle.getString(ListViewLaterActivity.BUS_NAME);
+        start = bundle.getString(ListViewLaterActivity.BUS_START);
+        end = bundle.getString(ListViewLaterActivity.BUS_END);
 
         webView = (WebView) findViewById(R.id.webViewBusHis);
         imgBackHis = (ImageView) findViewById(R.id.imgBackHis);
@@ -47,7 +45,7 @@ public class DetailHistoryActivity extends AppCompatActivity {
         imgBackHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailHistoryActivity.super.onBackPressed();
+                DetailViewLaterActivity.super.onBackPressed();
             }
         });
 
@@ -59,10 +57,10 @@ public class DetailHistoryActivity extends AppCompatActivity {
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");
 
-        String strId = "<p>" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
-        String strName = "<p>" + "<b>" + " Tên tuyến: " + "</b>" + name.toString() + "</p>";
-        String strStart = "<br>" + "<b>" + "Lượt đi:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">"  + start.toString()  + "</p>";
-        String strEnd = "<br>" + "<b>" + "Lượt về:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">" + end.toString()  + "</p>";
+        String strId = "<p style = \" color: #3F51B5 \">" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
+        String strName = "<p style = \" color: #3F51B5 \">" + "</b>" + name.toString() + "</p>";
+        String strStart = "<br>" + "<b style = \" color: #3F51B5 \">" + "Lượt đi:" + "</b>" + "</br>" + "<p style = \" color: #3F51B5 \">"  + start.toString()  + "</p>";
+        String strEnd = "<br>" + "<b style = \" color: #3F51B5 \">" + "Lượt về:" + "</b>" + "</br>" + "<p style = \" color: #3F51B5 \">" + end.toString()  + "</p>";
         String content = strId + strName + strStart + strEnd;
         webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }

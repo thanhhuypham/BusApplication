@@ -5,6 +5,6 @@ package com.example.administrator.busapp.mail;
  */
 
 public class Config {
-    public static final String EMAIL = "hoannguyen11110000@gmail.com";
-    public static final String PASSWORD = "huy25101996";
+    public static final String EMAIL = "customer.bus@gmail.com";
+    public static final String PASSWORD = "customerquestion";
 }

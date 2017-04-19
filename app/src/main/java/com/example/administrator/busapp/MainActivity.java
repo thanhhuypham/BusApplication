@@ -1,14 +1,16 @@
 package com.example.administrator.busapp;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.administrator.busapp.list.ListBusActivity;
+import com.example.administrator.busapp.list.ListMailActivity;
+import com.example.administrator.busapp.list.ListViewLaterActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,14 +42,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.itemTuyen:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent intent1 = new Intent(MainActivity.this, ListActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, ListBusActivity.class);
                         startActivity(intent1);
 
                         break;
-                    case R.id.itemLichsu:
+                    case R.id.itemXemsau:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent intent2 = new Intent(MainActivity.this, HistoryActivity.class);
+                        Intent intent2 = new Intent(MainActivity.this, ListViewLaterActivity.class);
                         startActivity(intent2);
 
                         break;
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
                         // add navigation drawer item onclick method here
                         Intent intent3 = new Intent(MainActivity.this, ContactActivity.class);
                         startActivity(intent3);
+
+                        break;
+                    case R.id.itemGanday:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        Intent intent4 = new Intent(MainActivity.this, ListMailActivity.class);
+                        startActivity(intent4);
 
                         break;
                 }

@@ -18,11 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".DetailHistoryActivity" />
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".list.ListBusActivity" />
+        <activity android:name=".detail.DetailBusActivity" />
+        <activity android:name=".list.ListViewLaterActivity" />
+        <activity android:name=".detail.DetailViewLaterActivity" />
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".list.ListMailActivity" />
+        <activity android:name=".detail.DetailMailActivity"></activity>
     </application>
 
 </manifest>

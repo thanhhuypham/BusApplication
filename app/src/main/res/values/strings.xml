@@ -20,12 +20,13 @@
     <string name="item_menu_tuyen">Danh sách tuyến</string>
     <string name="item_menu_timduong">Tìm đường</string>
     <string name="item_menu_nhantin">Nhắn tin phản hồi</string>
-    <string name="item_menu_lichsu">Lịch sử tìm kiếm</string>
+    <string name="item_menu_xemsau">Xem sau</string>
+    <string name="item_menu_ganday">Tin nhắn gần đây</string>
 
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <string name="lich_su_tim">LỊCH SỬ</string>
+    <string name="view_later">XEM SAU</string>
 
     <string name="recipident">Người nhận</string>
     <string name="subjects">Chủ đề</string>
@@ -33,4 +34,10 @@
     <string name="messages">Tin nhắn</string>
     <string name="send">Gửi</string>
     <string name="contact">LIÊN HỆ</string>
+    <string name="history">LỊCH SỬ</string>
+
+    <string name="admin">manager.bustphcm@gmail.com</string>
+
+    <string name="title_item_subject">Chủ đề</string>
+    <string name="title_item_date">Ngày gửi tin nhắn</string>
 </resources>

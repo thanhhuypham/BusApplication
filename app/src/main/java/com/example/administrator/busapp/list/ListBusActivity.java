@@ -1,4 +1,4 @@
-package com.example.administrator.busapp;
+package com.example.administrator.busapp.list;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,8 +15,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.administrator.busapp.R;
 import com.example.administrator.busapp.adapter.BusAdapter;
 import com.example.administrator.busapp.datamodels.Bus;
+import com.example.administrator.busapp.detail.DetailBusActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +31,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ListActivity extends AppCompatActivity {
+public class ListBusActivity extends AppCompatActivity {
 
     BusAdapter adapter;
     private static ArrayList<Bus> arrBus;
@@ -56,7 +58,7 @@ public class ListActivity extends AppCompatActivity {
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListActivity.super.onBackPressed();
+                ListBusActivity.super.onBackPressed();
             }
         });
 
@@ -69,7 +71,7 @@ public class ListActivity extends AppCompatActivity {
                 bundle.putString("start", arrBus.get(position).getStart());
                 bundle.putString("end", arrBus.get(position).getEnd());
 
-                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                Intent intent = new Intent(ListBusActivity.this, DetailBusActivity.class);
                 intent.putExtra("data", bundle);
                 startActivity(intent);
             }
@@ -98,7 +100,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(ListActivity.this);
+            dialog = new ProgressDialog(ListBusActivity.this);
             dialog.setMessage("Đang tải dữ liệu. Vui lòng chờ trong giây lát...");
             dialog.show();
         }
@@ -110,9 +112,9 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //Toast.makeText(ListActivity.this, s, Toast.LENGTH_LONG).show();
+            //Toast.makeText(ListBusActivity.this, s, Toast.LENGTH_LONG).show();
             dialog.dismiss();
-            Toast.makeText(ListActivity.this, "Hoàn tất việc tải dữ liệu!", Toast.LENGTH_LONG).show();
+            Toast.makeText(ListBusActivity.this, "Hoàn tất việc tải dữ liệu!", Toast.LENGTH_LONG).show();
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -126,7 +128,7 @@ public class ListActivity extends AppCompatActivity {
                 }
 
 
-                adapter = new BusAdapter(ListActivity.this, R.layout.layout_item_listview, arrBus);
+                adapter = new BusAdapter(ListBusActivity.this, R.layout.layout_item_listview_bus, arrBus);
                 lvBus.setAdapter(adapter);
 
             } catch (JSONException e) {

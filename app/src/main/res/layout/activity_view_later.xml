@@ -8,19 +8,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.administrator.busapp.HistoryActivity">
+    tools:context="com.example.administrator.busapp.list.ListViewLaterActivity">
 
     <ImageView
         android:id="@+id/imgViewClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_close_black_24dp"/>
+        android:background="@mipmap/ic_close_black_24dp"
+        android:backgroundTint="@color/colorPrimaryDark"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:textColor="@color/colorGreen"
+        android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content"
-        android:text="@string/lich_su_tim"
+        android:text="@string/view_later"
         android:textStyle="bold"
         android:layout_below="@id/imgViewClose"
         android:id="@+id/textViewHistory"

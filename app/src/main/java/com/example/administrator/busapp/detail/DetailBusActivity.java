@@ -1,4 +1,4 @@
-package com.example.administrator.busapp;
+package com.example.administrator.busapp.detail;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +11,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.administrator.busapp.R;
 import com.example.administrator.busapp.datamodels.Bus;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailBusActivity extends AppCompatActivity {
 
     private WebView webView;
     private ImageView imgBack;
@@ -29,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_bus);
 
         dbBus = FirebaseDatabase.getInstance().getReference("bus");
 
@@ -50,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailActivity.super.onBackPressed();
+                DetailBusActivity.super.onBackPressed();
             }
         });
 
@@ -61,14 +62,14 @@ public class DetailActivity extends AppCompatActivity {
                     Bus bus = new Bus(id, name, start, end);
 
                     dbBus.child(id).setValue(bus);
-                    Toast.makeText(DetailActivity.this, "Tuyến " + name + " đã được lưu vào lịch sử tìm kiếm", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailBusActivity.this, "Đã thêm vào xem sau", Toast.LENGTH_LONG).show();
 
                 }
                 else {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("bus").child(id);
                     databaseReference.removeValue();
 
-                    Toast.makeText(DetailActivity.this, "Tuyến " + name + " đã được hủy bỏ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailBusActivity.this, "Xóa khỏi danh sách xem sau", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -82,10 +83,10 @@ public class DetailActivity extends AppCompatActivity {
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("utf-8");
 
-        String strId = "<p>" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
-        String strName = "<p>" + "<b>" + " Tên tuyến: " + "</b>" + name.toString() + "</p>";
-        String strStart = "<br>" + "<b>" + "Lượt đi:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">"  + start.toString()  + "</p>";
-        String strEnd = "<br>" + "<b>" + "Lượt về:" + "</b>" + "</br>" + "<p style = \" color: #34B67A \">" + end.toString()  + "</p>";
+        String strId = "<p style = \" color: #3F51B5 \">" + "<b>" + " Mã số tuyến: " + "</b>" + id.toString() + "</p>";
+        String strName = "<p style = \" color: #3F51B5 \">" + "<b>" + " Tên tuyến: " + "</b>" + name.toString() + "</p>";
+        String strStart = "<br>" + "<b style = \" color: #3F51B5 \">" + "Lượt đi:"+ "</b>" + "</br>" + "<p style = \" color: #3F51B5 \">"  + start.toString()  + "</p>";
+        String strEnd = "<br>" + "<b style = \" color: #3F51B5 \">" + "Lượt về:" + "</b>" + "</br>" + "<p style = \" color: #3F51B5 \">" + end.toString()  + "</p>";
         String content = strId + strName + strStart + strEnd;
         webView.loadData(content, "text/html; charset=utf-8", "utf-8");
     }

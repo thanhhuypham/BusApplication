@@ -1,4 +1,4 @@
-package com.example.administrator.busapp;
+package com.example.administrator.busapp.list;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.administrator.busapp.R;
 import com.example.administrator.busapp.adapter.BusAdapter;
 import com.example.administrator.busapp.datamodels.Bus;
+import com.example.administrator.busapp.detail.DetailViewLaterActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HistoryActivity extends AppCompatActivity {
+public class ListViewLaterActivity extends AppCompatActivity {
     public static final String BUS_ID = "com.example.administrator.busapp.busid";
     public static final String BUS_NAME = "com.example.administrator.busapp.busname";
     public static final String BUS_START = "com.example.administrator.busapp.busstart";
     public static final String BUS_END = "com.example.administrator.busapp.busend";
     private ImageView imgViewClose;
-    private ListView lvHistory;
+    private ListView lvViewlater;
     private ArrayList<Bus> arrBus;
     private BusAdapter adapter;
     private DatabaseReference dbHisBus;
@@ -35,22 +37,22 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_view_later);
 
         dbHisBus = FirebaseDatabase.getInstance().getReference("bus");
         arrBus = new ArrayList<Bus>();
 
-        lvHistory = (ListView) findViewById(R.id.lvHistory);
+        lvViewlater = (ListView) findViewById(R.id.lvHistory);
         imgViewClose = (ImageView) findViewById(R.id.imgViewClose);
 
         imgViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HistoryActivity.super.onBackPressed();
+                ListViewLaterActivity.super.onBackPressed();
             }
         });
 
-        lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvViewlater.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
@@ -59,13 +61,13 @@ public class HistoryActivity extends AppCompatActivity {
                 bundle.putString(BUS_START, arrBus.get(position).getStart());
                 bundle.putString(BUS_END, arrBus.get(position).getEnd());
 
-                Intent intent = new Intent(HistoryActivity.this, DetailHistoryActivity.class);
+                Intent intent = new Intent(ListViewLaterActivity.this, DetailViewLaterActivity.class);
                 intent.putExtra("datahis", bundle);
                 startActivity(intent);
             }
         });
 
-        registerForContextMenu(lvHistory);
+        registerForContextMenu(lvViewlater);
     }
 
     @Override
@@ -106,8 +108,8 @@ public class HistoryActivity extends AppCompatActivity {
                     arrBus.add(bus);
                 }
 
-                adapter = new BusAdapter(HistoryActivity.this, R.layout.layout_item_listview, arrBus);
-                lvHistory.setAdapter(adapter);
+                adapter = new BusAdapter(ListViewLaterActivity.this, R.layout.layout_item_listview_bus, arrBus);
+                lvViewlater.setAdapter(adapter);
             }
 
             @Override

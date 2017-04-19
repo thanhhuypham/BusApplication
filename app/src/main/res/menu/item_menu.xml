@@ -10,12 +10,16 @@
         android:icon="@mipmap/ic_directions_bus_black_24dp"
         android:title="@string/item_menu_timduong">
     </item>
+    <item android:id="@+id/itemXemsau"
+        android:icon="@mipmap/ic_access_time_black_24dp"
+        android:title="@string/item_menu_xemsau">
+    </item>
     <item android:id="@+id/itemNhantin"
         android:icon="@mipmap/ic_message_black_24dp"
         android:title="@string/item_menu_nhantin">
     </item>
-    <item android:id="@+id/itemLichsu"
+    <item android:id="@+id/itemGanday"
         android:icon="@mipmap/ic_history_black_24dp"
-        android:title="@string/item_menu_lichsu">
+        android:title="@string/item_menu_ganday">
     </item>
 </menu>
