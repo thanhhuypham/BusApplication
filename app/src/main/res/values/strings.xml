@@ -40,4 +40,11 @@
 
     <string name="title_item_subject">Chủ đề</string>
     <string name="title_item_date">Ngày gửi tin nhắn</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="title_origin">Nhập điểm xuất phát</string>
+    <string name="title_destination">Nhập điểm đến</string>
+
+    <string name="number_km">0 km</string>
+    <string name="title_time">0 min</string>
 </resources>

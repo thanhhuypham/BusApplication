@@ -23,6 +23,7 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
     private Context context;
     private Session session;
 
+
     //Information to send email
     private String email;
     private String subject;
@@ -48,12 +49,14 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         Properties props = new Properties();
 
+        // Thiet lap mail server
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
+        // Lay doi tuong Session mac dinh.
         session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
                     //Authenticating the password
@@ -62,7 +65,7 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
                     }
                 });
         try {
-            //Creating MimeMessage object
+            // Tao mot doi tuong MimeMessage mac dinh.
             MimeMessage mm = new MimeMessage(session);
 
             //Setting sender address
@@ -71,7 +74,7 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
             mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             //Adding subject
             mm.setSubject(subject);
-            //Adding message
+            // Bay gio thiet lap message thuc su
             mm.setText(message);
 
             //Sending email

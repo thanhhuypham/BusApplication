@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initInstances() {
 
+        // Khởi tạo navigation
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -46,25 +47,32 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent1);
 
                         break;
+                    case R.id.itemTimduong:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        Intent intent2 = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent2);
+
+                        break;
                     case R.id.itemXemsau:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent intent2 = new Intent(MainActivity.this, ListViewLaterActivity.class);
-                        startActivity(intent2);
+                        Intent intent3 = new Intent(MainActivity.this, ListViewLaterActivity.class);
+                        startActivity(intent3);
 
                         break;
                     case R.id.itemNhantin:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent intent3 = new Intent(MainActivity.this, ContactActivity.class);
-                        startActivity(intent3);
+                        Intent intent4 = new Intent(MainActivity.this, ContactActivity.class);
+                        startActivity(intent4);
 
                         break;
                     case R.id.itemGanday:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        Intent intent4 = new Intent(MainActivity.this, ListMailActivity.class);
-                        startActivity(intent4);
+                        Intent intent5 = new Intent(MainActivity.this, ListMailActivity.class);
+                        startActivity(intent5);
 
                         break;
                 }

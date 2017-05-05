@@ -48,6 +48,7 @@ public class ListBusActivity extends AppCompatActivity {
         lvBus = (ListView) findViewById(R.id.listViewBus);
         arrBus = new ArrayList<Bus>();
 
+        // Yeu cau chay AsyncTask
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -96,13 +97,13 @@ public class ListBusActivity extends AppCompatActivity {
     }
 
     class docJSON extends AsyncTask<String, Integer, String> {
-        ProgressDialog dialog;
+        ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(ListBusActivity.this);
-            dialog.setMessage("Đang tải dữ liệu. Vui lòng chờ trong giây lát...");
-            dialog.show();
+            progressDialog = ProgressDialog.show(ListBusActivity.this, "Vui lòng đợi.",
+                    "Đang tải dữ liệu...!", true);
         }
 
         @Override
@@ -113,8 +114,8 @@ public class ListBusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             //Toast.makeText(ListBusActivity.this, s, Toast.LENGTH_LONG).show();
-            dialog.dismiss();
             Toast.makeText(ListBusActivity.this, "Hoàn tất việc tải dữ liệu!", Toast.LENGTH_LONG).show();
+            progressDialog.dismiss();
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -137,6 +138,8 @@ public class ListBusActivity extends AppCompatActivity {
         }
     }
 
+
+    // Doc noi dung tu html cua mot duong dan tu internet
     private static String docNoiDung_Tu_URL(String theUrl)
     {
         StringBuilder content = new StringBuilder();
